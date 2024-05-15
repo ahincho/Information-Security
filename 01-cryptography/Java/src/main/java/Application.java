@@ -10,6 +10,7 @@ public class Application {
     private static List<Character> characterList;
     public static void main(String[] args) {
         load("input", "data.txt", Arrays.asList('E', 'P', 'I', 'S'));
+        // load("input", "data.txt");
         preprocessing();
     }
     public static void load(String inputDirectory, String dataFilename) {
@@ -60,7 +61,7 @@ public class Application {
             // Step 5: Calculate a frequency table for each letter
             frequencyTable();
             // Step 6: Apply Kasiski Method
-            kasiskiMethod(characterList, 3);
+            kasiskiMethod(characterList, 4);
             // Step 7: Change each character according to UNICODE-8
             encodeToUnicode8();
         } catch (IOException ioException) {
@@ -78,7 +79,7 @@ public class Application {
     public static void removeAccentMarks() throws IOException {
         System.out.println("STEP 2: REMOVE ACCENT MARKS");
         Map<Character, Character> accentsSubstitutions = FileUtils
-                .getHashMapFromResource("input", "alphabetic-substitutions.txt");
+                .getHashMapFromResource("input", "accents-substitutions.txt");
         characterList = characterList.stream().map(c -> accentsSubstitutions.getOrDefault(c, c)).toList();
         System.out.println(characterList);
         FileUtils.saveListToResourceFile("output", "step-2-remove-accents-marks", characterList);
