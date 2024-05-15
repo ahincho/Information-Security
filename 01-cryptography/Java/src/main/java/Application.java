@@ -9,8 +9,8 @@ import java.util.stream.IntStream;
 public class Application {
     private static List<Character> characterList;
     public static void main(String[] args) {
-        load("input", "data.txt", Arrays.asList('E', 'P', 'I', 'S'));
-        // load("input", "data.txt");
+        // load("input", "data.txt", Arrays.asList('E', 'P', 'I', 'S'));
+        load("input", "data.txt");
         preprocessing();
     }
     public static void load(String inputDirectory, String dataFilename) {
@@ -61,7 +61,7 @@ public class Application {
             // Step 5: Calculate a frequency table for each letter
             frequencyTable();
             // Step 6: Apply Kasiski Method
-            kasiskiMethod(characterList, 4);
+            kasiskiMethod(characterList, 3);
             // Step 7: Change each character according to UNICODE-8
             encodeToUnicode8();
         } catch (IOException ioException) {
