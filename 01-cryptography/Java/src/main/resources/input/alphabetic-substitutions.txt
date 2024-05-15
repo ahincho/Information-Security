@@ -1,0 +1,16 @@
+A,u
+a,u
+H,t
+h,t
+Ñ,e
+ñ,e
+K,l
+k,l
+V,f
+v,f
+W,b
+w,b
+Z,y
+z,y
+R,p
+r,p
