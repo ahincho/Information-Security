@@ -1,7 +1,7 @@
-A,u
-a,u
-H,t
-h,t
+A,b
+a,b
+H,u
+h,u
 Ñ,e
 ñ,e
 K,l
