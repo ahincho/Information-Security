@@ -8,7 +8,10 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -62,5 +65,36 @@ public class FileUtils {
                 writer.write(item.toString());
             }
         }
+    }
+    public static <K, V> void saveMapToResourceFile(String directory, String filename, Map<K, V> map) throws IOException {
+        Path resourceDirectory = Paths.get("src", "main", "resources", directory);
+        String resourcePath = resourceDirectory.toAbsolutePath().toString();
+        String filePath = Paths.get(resourcePath, filename).toString();
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath))) {
+            Iterator<Map.Entry<K, V>> iterator = map.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<K, V> entry = iterator.next();
+                bufferedWriter.write(entry.getKey().toString() + "," + entry.getValue().toString());
+                if (iterator.hasNext()) {
+                    bufferedWriter.write("\n");
+                }
+            }
+        }
+    }
+    public static Map<Character, Long> getFrequencyMapFromFile(String directory, String filename, Set<Character> alphabet) throws IOException {
+        List<Character> characters = FileUtils.getCharListFromResource(filename);
+        Map<Character, Long> frequencyMap = alphabet.stream()
+                .collect(Collectors.toMap(
+                        character -> character,
+                        character -> characters.stream().filter(c -> c.equals(character)).count()
+                ));
+        return frequencyMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue,
+                        LinkedHashMap::new
+                ));
     }
 }
