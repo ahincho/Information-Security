@@ -1,6 +1,9 @@
 def fill_alphabet(alpha_len):
 
-    alpha = "".join(chr(ord('a') + i) for i in range(alpha_len))
+    alpha = "".join(chr(ord('a') + i) for i in range(14))
+    alpha += 'ñ'
+    alpha += "".join(chr(ord('o') + i) for i in range(12))
+    #alpha = "".join(chr(ord('a') + i) for i in range(alpha_len))
     return alpha
 
 def encode_cesar(content, displacement):
