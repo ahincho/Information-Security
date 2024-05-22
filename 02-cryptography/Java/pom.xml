@@ -40,7 +40,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.unsa.information.security.Application</mainClass>
+              <mainClass>com.unsa.information.security.main.Application</mainClass>
             </manifest>
           </archive>
         </configuration>
