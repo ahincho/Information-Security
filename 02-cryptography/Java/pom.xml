@@ -3,19 +3,48 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.unsa.information.security</groupId>
   <artifactId>cryptography</artifactId>
+  <name>cryptography</name>
   <version>1.0</version>
   <packaging>jar</packaging>
-  <name>cryptography</name>
-  <url>http://maven.apache.org</url>
   <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.plugin>3.13.0</maven.compiler.plugin>
+    <maven.jar.plugin>3.4.1</maven.jar.plugin>
+    <junit.version>4.13.2</junit.version>
   </properties>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin}</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>${maven.jar.plugin}</version>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>com.unsa.information.security.Application</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
