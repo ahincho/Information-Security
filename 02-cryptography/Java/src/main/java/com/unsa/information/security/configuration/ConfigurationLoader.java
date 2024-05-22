@@ -22,7 +22,7 @@ public class ConfigurationLoader {
         String configurationFile = String.format("application-%s.properties", profile);
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(configurationFile)) {
             if (inputStream == null) {
-                System.out.format("Can not load %s file", configurationFile);
+                System.out.format("Can not load %s file\n", configurationFile);
                 return;
             }
             applicationProperties.load(inputStream);
