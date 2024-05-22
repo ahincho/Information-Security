@@ -1,8 +1,9 @@
 import sys
 
+
 def read_args1():
     if len(sys.argv) != 3:
-        print("You must write a loaded file and a saved file name\n\tExample: ´python script.py loaded_file.txt saved_file.txt´", file=sys.stderr)
+        print("You must write a content file and a key file name\n\tExample: ´python script.py content.txt key.txt´", file=sys.stderr)
         exit(1)
 
     return sys.argv[1], sys.argv[2]
@@ -10,7 +11,7 @@ def read_args1():
 
 def read_args2():
     if len(sys.argv) != 2:
-        print("You must write a loaded file name\n\tExample: ´python script.py loaded_file.txt´", file=sys.stderr)
+        print("You must write a content file name\n\tExample: ´python script.py content.txt´", file=sys.stderr)
         exit(1)
 
     return sys.argv[1]
@@ -42,6 +43,8 @@ def clean_content(content):
             out += c
 
     return out
+
+
 def letter_counting(top, content):
     count = dict()
 
@@ -62,3 +65,11 @@ def letter_counting(top, content):
         i += 1
 
 
+def fill_alphabet(alpha_len):
+    """
+    alpha = "".join(chr(ord('a') + i) for i in range(14))
+    alpha += 'ñ'
+    alpha += "".join(chr(ord('o') + i) for i in range(12))
+    """
+    alpha = "".join(chr(ord('a') + i) for i in range(alpha_len))
+    return alpha

@@ -1,4 +1,3 @@
-from source import *
 from cesar_source import *
 
 
@@ -17,9 +16,14 @@ def main():
     encoding_content = encode_cesar(content, displacement)
 
     # Printing the letter counting
-    letter_counting(5, encoding_content)
+    #letter_counting(5, encoding_content)
 
-    print(encoding_content)
+    # Getting the decoding conent (Cesar version)
+    decoding_content = decode_cesar(encoding_content, displacement)
+
+    print(f"Original text: {content}")
+    print(f"Encoding text: {encoding_content}")
+    print(f"Decoding text: {decoding_content}")
 
 
 if __name__ == "__main__":
