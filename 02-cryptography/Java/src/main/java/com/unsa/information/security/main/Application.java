@@ -10,7 +10,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Application {
     private static final ConfigurationLoader configurationLoader = ConfigurationLoader.getConfigurationLoaderInstance();
@@ -22,6 +23,8 @@ public class Application {
             preprocessing();
             caesarEncryptor();
             vigenereEncryptor();
+            vigenereAnalysis();
+            vigenereDecryptionExample();
         } catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         }
@@ -70,5 +73,36 @@ public class Application {
         characters = VigenereEncryptor.decrypt(characters, alphabet, vigenereSecretKey);
         FileUtils.saveListToResourceFile("output", vigenereDecryptionFile, characters);
         System.out.printf("Decrypted text: %s\n", characters);
+    }
+    public static void vigenereAnalysis() throws IOException {
+        System.out.println("STEP 4: VIGENERE ENCRYPTION ANALYSIS");
+        String vigenereEncryptionFile = String.format("%s/%s", "output", configurationLoader.getProperty("application.files.vigenere.encryption"));
+        String validAlphabetFile = configurationLoader.getProperty("application.files.alphabet");
+        Set<Character> validAlphabet = FileUtils.getCharSetFromResource(validAlphabetFile);
+        Map<Character, Long> frequencyMap = FileUtils.getFrequencyMapFromFile("output", vigenereEncryptionFile, validAlphabet);
+        System.out.println("Frequency Map");
+        mapFormat(frequencyMap, 7);
+    }
+    public static void vigenereDecryptionExample() throws IOException {
+        System.out.println("STEP 5: VIGENERE DECRYPTION EXAMPLE");
+        String vigenereSecretKeyFile = configurationLoader.getProperty("application.example.vigenere.secret.key");
+        String vigenereEncryptionFile = configurationLoader.getProperty("application.example.vigenere.encryption");
+        String vigenereDecryptionFile = configurationLoader.getProperty("application.example.vigenere.decryption");
+        List<Character> vigenereSecretKey = FileUtils.getCharListFromResource(vigenereSecretKeyFile);
+        List<Character> vigenereEncryption = Preprocessing.toLowerCase(FileUtils.getCharListFromResource(vigenereEncryptionFile));
+        System.out.format("Secret key: %s\n",vigenereSecretKey);
+        System.out.format("Encrypted text: %s\n", vigenereEncryption);
+        List<Character> decryptedText = VigenereEncryptor.decrypt(vigenereEncryption, alphabet, vigenereSecretKey);
+        FileUtils.saveListToResourceFile("output", vigenereDecryptionFile, decryptedText);
+        System.out.format("Decrypted text: %s\n", decryptedText);
+    }
+    private static <K, V> void mapFormat(Map<K, V> map, Integer buffer) {
+        IntStream.range(0, (map.size() + buffer - 1) / buffer)
+                .mapToObj(i -> map.entrySet().stream()
+                        .skip(i * buffer)
+                        .limit(buffer)
+                        .map(entry -> entry.getKey() + ": " + entry.getValue() + ",")
+                        .collect(Collectors.joining("  ")))
+                .forEach(System.out::println);
     }
 }
