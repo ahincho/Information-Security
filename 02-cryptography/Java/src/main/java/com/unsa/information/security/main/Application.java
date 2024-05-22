@@ -2,6 +2,7 @@ package com.unsa.information.security.main;
 
 import com.unsa.information.security.configuration.ConfigurationLoader;
 import com.unsa.information.security.encryption.CaesarEncryptor;
+import com.unsa.information.security.encryption.VigenereEncryptor;
 import com.unsa.information.security.preprocessing.Preprocessing;
 import com.unsa.information.security.utils.FileUtils;
 
@@ -20,6 +21,7 @@ public class Application {
             setUp();
             preprocessing();
             caesarEncryptor();
+            vigenereEncryptor();
         } catch (IOException ioException) {
             System.out.println(ioException.getMessage());
         }
@@ -54,5 +56,19 @@ public class Application {
         String caesarDecryptionFile = configurationLoader.getProperty("application.files.caesar.decryption");
         FileUtils.saveListToResourceFile("output", caesarDecryptionFile, characters);
         System.out.format("Decrypted text: %s\n", characters);
+    }
+    public static void vigenereEncryptor() throws IOException {
+        System.out.println("STEP 3: APPLY VIGENERE ENCRYPTOR");
+        String vigenereEncryptionFile = configurationLoader.getProperty("application.files.vigenere.encryption");
+        String vigenereDecryptionFile = configurationLoader.getProperty("application.files.vigenere.decryption");
+        String vigenereSecretKeyFile = configurationLoader.getProperty("application.files.vigenere.secret.key");
+        List<Character> vigenereSecretKey = FileUtils.getCharListFromResource(vigenereSecretKeyFile);
+        System.out.printf("Vigenere Secret Key: %s\n", vigenereSecretKey);
+        characters = VigenereEncryptor.encrypt(characters, alphabet, vigenereSecretKey);
+        FileUtils.saveListToResourceFile("output", vigenereEncryptionFile, characters);
+        System.out.format("Encrypted text: %s\n", characters);
+        characters = VigenereEncryptor.decrypt(characters, alphabet, vigenereSecretKey);
+        FileUtils.saveListToResourceFile("output", vigenereDecryptionFile, characters);
+        System.out.printf("Decrypted text: %s\n", characters);
     }
 }
