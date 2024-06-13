@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "2ac26ac3-f216-4397-bc9c-326283e7a9c4",
+		"name": "Certificates",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28538211"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\": \"Angel Eduardo\",\r\n    \"lastname\": \"Hincho Jove\",\r\n    \"email\": \"ahincho@unsa.edu.pe\",\r\n    \"password\": \"ahincho@dev\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/auth/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"ahincho@unsa.edu.pe\",\r\n    \"password\": \"ahincho@dev\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/api/v1/auth/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJBbmdlbCBFZHVhcmRvIEhpbmNobyBKb3ZlIiwiZXhwIjoxNzE4MjI4OTUwLCJpYXQiOjE3MTgyMjg2NTB9.BGGazMRgZmhKTii7G7C32t9BI9OPwJeK_ZSZLZibwXT6zPYKKB5-PYHrAQCLBFrt6t0Q_dMye119W1KkL9UVKEzpxMP98YBzi2VwQ7oPXcEfGYsx1UMqbz2DOQIYeMbIWhgASMuu8MiXDEsbTYe6QNNGZX7vw1eqJifOtWlwbYfcR10VIUZkTvXWQn14nv3Ll8MgDa7vxH2Ov63rLafwyqzADmqIGiIcBu3bNfSKeuCpAM3mOqb94PLCihxtVIVwhbb-GBj-Iikr8tA2QmUbE9Zg0nbaoTtNESAV2K4tqlkro_EHRmfO7Wz5SAVGna3EaV0x-GqG5hGnvlXZW_fDqrM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/api/v1/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "localhost:8090",
+			"type": "string"
+		}
+	]
+}
